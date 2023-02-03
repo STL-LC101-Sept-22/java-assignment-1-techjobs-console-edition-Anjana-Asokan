@@ -58,6 +58,9 @@ public class TechJobsTest {
         String input = "0\n0\nRuby\nx";
         String output = runProgramWithInput(input);
         String expected = getFileContents("src/test/resources/testFindByValue.txt");
+
+        System.out.println("Expected result:\n"+expected);
+        System.out.println("Actual result:\n"+output);
         assertEquals(expected, output);
     }
 

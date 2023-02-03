@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -43,7 +40,7 @@ public class TechJobs {
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
-
+                    Collections.sort(results);
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
@@ -57,7 +54,8 @@ public class TechJobs {
                 // How does the user want to search (e.g. by skill or employer)
                 String searchField = getUserSelection("Search by:", columnChoices);
 
-                // What is their search term?
+                // What is their search term?x
+
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
 
@@ -120,6 +118,31 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+       // System.out.println("printJobs is not implemented yet");
+        if(someJobs.size() > 0) {
+
+            for (HashMap<String, String> job : someJobs) {
+
+                //System.out.println("Current Job Keyset = "+job.keySet());
+                String[] jobKeys = new String[job.size()];
+                int jk = 0;
+                for (String jobKey : job.keySet()) {
+
+                    jobKeys[jk] = jobKey;
+                    jk++;
+
+                }
+
+                System.out.println("\n*****");
+                for (int i = 0; i < jobKeys.length; i++) {
+                    System.out.println(jobKeys[i] + ": " + job.get(jobKeys[i]));
+                }
+                System.out.println("*****");
+            }
+        }
+        else{
+            System.out.println("No Results");
+        }
+
     }
 }

@@ -54,7 +54,10 @@ public class JobData {
         loadData();
 
         // Bonus mission; normal version returns allJobs
-        return new ArrayList<>(allJobs);
+        //return new ArrayList<>(allJobs);
+        ArrayList<HashMap<String, String>> jobListing = new ArrayList<>();
+        jobListing.addAll(allJobs);
+        return jobListing;
     }
 
     /**
@@ -79,7 +82,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) {
                 jobs.add(row);
             }
         }
@@ -97,9 +100,35 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        for (HashMap<String, String> row : allJobs) {
+            boolean valueMatch = false;
+            for (String rowVal : row.values()) {
+                if (rowVal.toUpperCase().contains(value.toUpperCase())) {
+                    valueMatch = true;
+                    break;
+                }
+            }
+            if(valueMatch == true ){
+                 if(jobs.size()>0){
+                     boolean jobMatch = false;
+                    for(int i=0; i<jobs.size(); i++){
+                      if(jobs.get(i).equals(row)){
+                          jobMatch = true;
+                          break;
+                        }
+                    }
+                    if(jobMatch == false){
+                        jobs.add(row);
+                    }
+                } else{
+                    jobs.add(row);
+                 }
 
-        // TODO - implement this method
-        return null;
+            }
+        }
+        
+        return jobs;
     }
 
     /**
